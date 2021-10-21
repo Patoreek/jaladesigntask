@@ -6,8 +6,12 @@ import getStartedImg from "./assets/pexels-artem-podrez-5716053.jpg";
 import { ReactComponent as FacebookIcon } from "./assets/facebook-icon.svg";
 import { ReactComponent as TwitterIcon } from "./assets/twitter-icon.svg";
 import { ReactComponent as LinkedInIcon } from "./assets/linkedin.svg";
+import { ReactComponent as HamburgerMenuSVG } from "./assets/hamburger_menu.svg";
+import { ReactComponent as CloseSVG } from "./assets/close.svg";
 
 function App() {
+  const [openMenu, setOpenMenu] = useState(false);
+
   const navOptions = ["Home", "About Us", "Services", "Portfolio", "Contact"];
 
   const detailsInfo = [
@@ -28,11 +32,38 @@ function App() {
     },
   ];
 
+  const mobileMenuHandler = () => {
+    setOpenMenu(!openMenu);
+  };
+
   return (
     <div className={classes.home}>
       <div className={classes.banner}>
         {/* Navigation is fixed at the top thats why it sits inside the banner DIV */}
-        <div className={classes.sandwichBtn}>Open</div>
+        <div className={classes.hamburgerBtn} onClick={mobileMenuHandler}>
+          <HamburgerMenuSVG />
+        </div>
+        <div
+          className={`${classes.mobileMenu} ${
+            openMenu == true && classes.openMenu
+          }`}
+        >
+          <div className={classes.closeBtn} onClick={mobileMenuHandler}>
+            <CloseSVG />
+          </div>
+          <div className={classes.logo}>
+            <span className={classes.logo__logo}>
+              Jala <span className={classes.design}>Design.</span>
+            </span>
+          </div>
+          <div className={classes.menu}>
+            {navOptions.map((navOption) => (
+              <div className={classes.menu__item}>
+                <span>{navOption}</span>
+              </div>
+            ))}
+          </div>
+        </div>
         <div className={classes.navigationContainer}>
           <div className={classes.navigation}>
             <div className={classes.navigation__left}>
@@ -58,7 +89,7 @@ function App() {
             do eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </p>
           <button className={classes.bannerContent__getStartedBtn}>
-            Get Started
+            <span className={classes.btnText}>Get Started</span>
           </button>
         </div>
       </div>
@@ -100,9 +131,9 @@ function App() {
               laculis eu non diam phasellus. Eu turpis egestas pretium aenean
               pharetra
             </p>
-            <div className={classes.getStartedBtn}>
-              <button className={classes.getStartedBtn__btn}>
-                Get Started
+            <div className={classes.getStartedBtnContainer}>
+              <button className={classes.getStartedBtnContainer__getStartedBtn}>
+                <span className={classes.btnText}>Get Started</span>
               </button>
             </div>
           </div>
